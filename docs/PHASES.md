@@ -17,12 +17,19 @@ Living log — update at the end of each phase (see [README](../README.md)).
 - OpenAPI at `/docs`
 - Docs: [API.md](./API.md), [ARCHITECTURE.md](./ARCHITECTURE.md)
 
-## Phase 3 — Personalisation engine (next)
+## Phase 3 — Personalisation engine ✅
 
-- Insight module registry in `@mausam/shared`
-- Vitest fixtures
+- Insight module registry + scoring in `@mausam/shared`
+- Vitest fixtures + engine tests
 - `POST /v1/feed`
+- `pnpm demo:feed` — runner / farmer / parent / traveller comparison
+- [ENGINE.md](./ENGINE.md)
 
-## Phases 4–7
+## Phase 4 — UI component library (next)
 
-See README roadmap (UI library, screens, offline/i18n, demo script).
+- Reusable components under `apps/mobile/src/components/ui`
+- `/dev/gallery` previews
+
+## Phases 5–7
+
+Screens, offline/i18n/notifications, polish.

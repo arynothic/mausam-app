@@ -18,6 +18,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,yml,yaml}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md,yml,yaml}\"",
     "test": "pnpm -r run test",
+    "demo:feed": "pnpm --filter @mausam/shared demo:feed",
     "clean": "pnpm -r run clean && rm -rf node_modules",
     "prepare": "pnpm --filter @mausam/shared build"
   },

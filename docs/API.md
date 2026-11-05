@@ -73,6 +73,26 @@ Geocoding with **Indian cities ranked first** via seed list + Open-Meteo geocodi
 curl "http://localhost:3001/v1/locations/search?q=amritsar&limit=5"
 ```
 
+### `POST /v1/feed`
+
+Runs the **personalisation engine** and returns a [`HomeFeed`](../packages/shared/src/schemas/weather.ts).
+
+**Body** (`FeedRequest`): `{ "profile": UserProfile, "location"?: NamedLocation }`
+
+Weather is loaded for the profile’s primary location unless `location` overrides it. Cards are scored for `profile.activePersona`; active warnings pin to the top.
+
+```bash
+curl -s -X POST http://localhost:3001/v1/feed \
+  -H 'content-type: application/json' \
+  -d '{"profile":{"deviceId":"x","personas":["runner"],"activePersona":"runner","locations":[{"id":"1","name":"Delhi","country":"IN","point":{"lat":28.61,"lon":77.21}}],"primaryLocationId":"1","units":{},"sensitivities":{},"language":"en","cardVisibility":{"hiddenCardIds":[],"pinnedCardIds":[]}}}'
+```
+
+Every card includes `whyExplanation` for the “Why am I seeing this?” affordance.
+
+## Personalisation engine
+
+Code: [`packages/shared/src/engine/`](../packages/shared/src/engine/) — see [ENGINE.md](./ENGINE.md).
+
 ## Environment
 
 See [`apps/api/.env.example`](../apps/api/.env.example).

@@ -1,6 +1,23 @@
 # Architecture
 
-## Data flow (Phase 2)
+## Data flow (Phase 3 — feed)
+
+```mermaid
+sequenceDiagram
+  participant Client
+  participant API as POST /v1/feed
+  participant Weather as CachedWeatherService
+  participant Engine as buildHomeFeed
+
+  Client->>API: profile + optional location
+  API->>Weather: getSnapshot
+  Weather-->>API: WeatherSnapshot
+  API->>Engine: snapshot + profile
+  Engine-->>API: HomeFeed (ranked cards)
+  API-->>Client: JSON
+```
+
+## Data flow (Phase 2 — weather)
 
 ```mermaid
 sequenceDiagram
@@ -28,16 +45,18 @@ sequenceDiagram
 
 | Package | Role |
 | ------- | ---- |
-| `@mausam/shared` | Zod schemas, personas, India location seeds, personalisation engine (Phase 3+) |
+| `@mausam/shared` | Zod schemas, personas, location seeds, `buildHomeFeed` engine |
 | `@mausam/api` | HTTP edge, provider adapters, cache, geocoding |
 | `@mausam/mobile` | Expo client, theme, screens |
 
-## Personalisation (Phase 3+)
+## Personalisation (Phase 3)
 
-The **Personalisation Engine** will live in `@mausam/shared` as pure functions: insight modules register `{ id, personas, compute }`, scores merge persona weights and severity, and IMD warnings pin to the top of the feed.
+The engine in `@mausam/shared` registers insight modules `{ id, personas, compute }`, applies persona/severity/time scoring, pins active warnings, and validates output with Zod. See [ENGINE.md](./ENGINE.md).
 
 ## Documentation index
 
 - [README](../README.md) — setup and phase roadmap
 - [API.md](./API.md) — REST reference
+- [ENGINE.md](./ENGINE.md) — insight modules and extensions
+- [PHASES.md](./PHASES.md) — delivery log
 - [DECISIONS.md](../DECISIONS.md) — product and engineering defaults

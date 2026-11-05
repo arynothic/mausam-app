@@ -7,7 +7,7 @@ Personalised weather homepage for India — Problem Statement **26076**. Differe
 ```
 apps/mobile     React Native (Expo Router) client
 apps/api        Fastify REST API (/v1)
-packages/shared Zod schemas, personas, location seeds, engine (Phase 3+)
+packages/shared Zod schemas, personas, location seeds, personalisation engine
 docs/           Architecture and API reference (kept in sync each phase)
 ```
 
@@ -50,6 +50,7 @@ Use `WEATHER_PROVIDER=openmeteo` in `.env` for live Open-Meteo forecasts (defaul
 pnpm typecheck
 pnpm lint
 pnpm test
+pnpm demo:feed   # same fixture weather → 4 persona homepages
 ```
 
 ## Documentation
@@ -57,6 +58,7 @@ pnpm test
 | Doc | Contents |
 | --- | -------- |
 | [docs/PHASES.md](./docs/PHASES.md) | Phase-by-phase delivery log |
+| [docs/ENGINE.md](./docs/ENGINE.md) | Personalisation engine guide |
 | [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md) | Data flow, package roles, doc index |
 | [docs/API.md](./docs/API.md) | REST v1 endpoints, errors, env vars |
 | [DECISIONS.md](./DECISIONS.md) | Engineering and product defaults |
@@ -67,9 +69,9 @@ pnpm test
 | ----- | ------ | ----- |
 | **1** | Done | Monorepo, shared schemas/personas, theme tokens, lint/CI |
 | **2** | Done | Weather providers, cache, `/v1/weather`, `/v1/alerts`, `/v1/locations/search` |
-| 3 | Next | Personalisation engine + `/feed` |
-| 4 | Planned | UI component library + `/dev/gallery` |
-| 5–7 | Planned | Screens, offline/i18n/notifications, demo script |
+| **3** | Done | Personalisation engine, `POST /v1/feed`, `pnpm demo:feed` |
+| 4 | Next | UI component library + `/dev/gallery` |
+| 5–7 | Planned | Screens, offline/i18n/notifications, polish |
 
 ## Architecture
 

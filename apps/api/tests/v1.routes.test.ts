@@ -71,4 +71,35 @@ describe("v1 weather API", () => {
     const body = res.json() as { error: { code: string } };
     expect(body.error.code).toBe("VALIDATION_ERROR");
   });
+
+  it("POST /v1/feed returns personalised cards", async () => {
+    const res = await app.inject({
+      method: "POST",
+      url: "/v1/feed",
+      payload: {
+        profile: {
+          deviceId: "demo",
+          personas: ["runner"],
+          activePersona: "runner",
+          locations: [
+            {
+              id: "loc",
+              name: "Test",
+              country: "IN",
+              point: { lat: 28.61, lon: 77.21 },
+            },
+          ],
+          primaryLocationId: "loc",
+          units: { temperature: "celsius", windSpeed: "kmh", precipitation: "mm" },
+          sensitivities: { asthma: false, heatSensitive: false },
+          language: "en",
+          cardVisibility: { hiddenCardIds: [], pinnedCardIds: [] },
+        },
+      },
+    });
+    expect(res.statusCode).toBe(200);
+    const body = res.json() as { cards: { id: string }[]; heroSummary: string };
+    expect(body.heroSummary.length).toBeGreaterThan(0);
+    expect(body.cards.some((c) => c.id === "run-suitability")).toBe(true);
+  });
 });

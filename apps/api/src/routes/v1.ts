@@ -1,8 +1,10 @@
 import type { FastifyInstance } from "fastify";
 import {
   AlertsQuerySchema,
+  FeedRequestSchema,
   LocationSearchQuerySchema,
   WeatherQuerySchema,
+  buildHomeFeed,
 } from "@mausam/shared";
 import { AppError, sendError, upstreamError, validationError } from "../lib/errors.js";
 import type { LocationSearchService } from "../geocoding/locations.js";
@@ -115,6 +117,48 @@ export function registerV1Routes(
       }
       const locations = await deps.locations.search(parsed.data.q, parsed.data.limit);
       return { locations };
+    },
+  );
+
+  app.post(
+    "/v1/feed",
+    {
+      schema: {
+        tags: ["feed"],
+        body: {
+          type: "object",
+          required: ["profile"],
+          properties: {
+            profile: { type: "object" },
+            location: { type: "object" },
+          },
+        },
+      },
+    },
+    async (request, reply) => {
+      const parsed = FeedRequestSchema.safeParse(request.body);
+      if (!parsed.success) {
+        return sendError(reply, validationError("Invalid body", parsed.error.flatten()));
+      }
+      const { profile, location: locOverride } = parsed.data;
+      const loc =
+        locOverride ??
+        profile.locations.find((l) => l.id === profile.primaryLocationId) ??
+        profile.locations[0];
+      if (!loc) {
+        return sendError(reply, validationError("Profile has no locations"));
+      }
+      try {
+        const snapshot = await deps.weather.getSnapshot(loc);
+        const feed = buildHomeFeed(snapshot, profile, { location: locOverride });
+        return feed;
+      } catch (err) {
+        request.log.error({ err }, "feed generation failed");
+        return sendError(
+          reply,
+          upstreamError("Unable to build feed", err instanceof Error ? err.message : err),
+        );
+      }
     },
   );
 }

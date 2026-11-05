@@ -42,6 +42,7 @@ export async function buildApp(options: BuildAppOptions = {}) {
         { name: "system", description: "Health and meta" },
         { name: "weather", description: "Forecasts and alerts" },
         { name: "locations", description: "Geocoding" },
+        { name: "feed", description: "Personalised home feed" },
       ],
     },
   });

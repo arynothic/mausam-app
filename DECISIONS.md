@@ -21,7 +21,14 @@
 ## Product (upcoming)
 
 - **Auth:** anonymous **device ID** profile sync (`GET/PUT /v1/profile/:deviceId`) — Phase 5 with Prisma + SQLite.
-- **Engine location:** `packages/shared` (Phase 3) so the same logic runs on API and on-device offline.
+- **Engine location:** `packages/shared` — `buildHomeFeed()` used by API today; same package on mobile for offline (Phase 6).
+
+## Personalisation (Phase 3)
+
+- **Engine:** `packages/shared/src/engine/` — registry of insight modules, Zod-validated output.
+- **Scoring:** persona lens × severity × time sensitivity; `pinTop` for active warnings.
+- **Transparency:** every `InsightCard` includes `whyExplanation`.
+- **Extending:** [docs/ENGINE.md](docs/ENGINE.md).
 
 ## UX
 
