@@ -30,6 +30,8 @@ cp apps/api/.env.example apps/api/.env
 pnpm dev          # API + Expo in parallel
 pnpm dev:api      # http://localhost:3001 — see /docs for OpenAPI UI
 pnpm dev:mobile   # Expo dev server
+pnpm start        # same as dev:mobile (from repo root)
+pnpm web          # Expo web → http://localhost:8081
 ```
 
 ### Try the API (Phase 2)

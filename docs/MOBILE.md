@@ -1,6 +1,30 @@
 # Mobile UI (`@mausam/mobile`)
 
-Expo Router app with design tokens in `src/theme` and components in `src/components/ui`.
+Expo **SDK 58** · Expo Router app with design tokens in `src/theme` and components in `src/components/ui`.
+
+## Monorepo (`@mausam/shared`)
+
+- Import `@mausam/shared` from the workspace package (built `dist/`). Run `pnpm --filter @mausam/shared build` after shared changes (also runs on `pnpm install` via `prepare`).
+- **Do not** add `tsconfig` `paths` that point `@mausam/shared` at `packages/shared/src` — Metro will bundle TypeScript source and break on `.js` import specifiers (web and native).
+- Metro: `apps/mobile/metro.config.js` watches the repo root and maps `@mausam/shared` to the package directory (resolves via `package.json` → `dist/`).
+
+## Web
+
+```bash
+cd apps/mobile && pnpm web
+# http://localhost:8081 — gallery at /dev/gallery
+```
+
+Requires `react-native-web` (included). Use **`w`** in the Expo CLI or `pnpm web`.
+
+## Run on a physical phone (Expo Go)
+
+| Network | How to connect |
+| -------- | ---------------- |
+| **Same Wi‑Fi as your PC** | `cd apps/mobile && pnpm start` — scan QR or open the `exp://<LAN-IP>:8081` URL. |
+| **Mobile data only** (not on home Wi‑Fi) | LAN URLs **will not work**. From `apps/mobile`: `pnpm start:tunnel` (uses ngrok; `@expo/ngrok` is a dev dependency). Scan the QR or open the `exp://…` link Expo prints. Alternatively `npx expo login` then `pnpm exec expo start --tunnel`. |
+
+If Expo Go spins forever on a loader, reload after Metro finishes (`r` in the terminal). The app no longer waits on custom fonts before showing UI.
 
 ## Preview components
 

@@ -13,8 +13,10 @@ config.resolver.nodeModulesPaths = [
   path.resolve(projectRoot, "node_modules"),
   path.resolve(workspaceRoot, "node_modules"),
 ];
-config.resolver.disableHierarchicalLookup = true;
-config.resolver.unstable_enableSymlinks = true;
-config.resolver.unstable_enablePackageExports = true;
+// pnpm nests deps under .pnpm; hierarchical lookup resolves peers (e.g. whatwg-fetch).
+config.resolver.disableHierarchicalLookup = false;
+config.resolver.extraNodeModules = {
+  "@mausam/shared": path.resolve(workspaceRoot, "packages/shared"),
+};
 
 module.exports = config;

@@ -3,7 +3,7 @@
 ## Monorepo & tooling
 
 - **pnpm workspaces** with `apps/mobile`, `apps/api`, `packages/shared`.
-- **Expo SDK 58** (latest at scaffold time) with **Expo Router**, typed routes, and New Architecture enabled.
+- **Expo SDK 58** with **Expo Router**, typed routes, and New Architecture enabled.
 - **Plus Jakarta Sans** via `@expo-google-fonts/plus-jakarta-sans` (Inter alternative per spec).
 - **Strict TypeScript** everywhere; `@typescript-eslint/strictTypeChecked` at repo root.
 - **Shared package** builds to `dist/` for Node (API/tests); mobile resolves **source** via TS paths + Metro `watchFolders` for fast iteration.
