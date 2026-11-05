@@ -9,7 +9,6 @@ import {
   PlusJakartaSans_700Bold,
 } from "@expo-google-fonts/plus-jakarta-sans";
 import { ThemeProvider } from "@/theme/ThemeProvider";
-import { View, ActivityIndicator } from "react-native";
 import { useTheme } from "@/theme/ThemeProvider";
 
 function RootNavigator() {
@@ -25,20 +24,13 @@ function RootNavigator() {
 }
 
 export default function RootLayout() {
-  const [loaded] = useFonts({
+  // Do not block the tree on fonts — useFonts can hang on some Expo Go builds.
+  useFonts({
     PlusJakartaSans_400Regular,
     PlusJakartaSans_500Medium,
     PlusJakartaSans_600SemiBold,
     PlusJakartaSans_700Bold,
   });
-
-  if (!loaded) {
-    return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <ActivityIndicator />
-      </View>
-    );
-  }
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
