@@ -6,8 +6,9 @@ Personalised weather homepage for India — Problem Statement **26076**. Differe
 
 ```
 apps/mobile     React Native (Expo Router) client
-apps/api        Fastify REST API (/v1 in later phases)
-packages/shared Zod schemas, personas, personalisation engine (Phase 3+)
+apps/api        Fastify REST API (/v1)
+packages/shared Zod schemas, personas, location seeds, engine (Phase 3+)
+docs/           Architecture and API reference (kept in sync each phase)
 ```
 
 ## Prerequisites
@@ -20,21 +21,28 @@ packages/shared Zod schemas, personas, personalisation engine (Phase 3+)
 ```bash
 pnpm install
 pnpm build   # builds @mausam/shared
+cp apps/api/.env.example apps/api/.env
 ```
 
 ## Development
 
 ```bash
 pnpm dev          # API + Expo in parallel
-pnpm dev:api      # http://localhost:3001/health
+pnpm dev:api      # http://localhost:3001 — see /docs for OpenAPI UI
 pnpm dev:mobile   # Expo dev server
 ```
 
-Copy env for the API:
+### Try the API (Phase 2)
 
 ```bash
-cp apps/api/.env.example apps/api/.env
+# Mock provider (offline, deterministic)
+WEATHER_PROVIDER=mock pnpm dev:api
+
+curl -s "http://localhost:3001/v1/locations/search?q=delhi" | head
+curl -s "http://localhost:3001/v1/weather?lat=28.61&lon=77.21&name=Delhi" | head
 ```
+
+Use `WEATHER_PROVIDER=openmeteo` in `.env` for live Open-Meteo forecasts (default).
 
 ## Quality
 
@@ -44,19 +52,25 @@ pnpm lint
 pnpm test
 ```
 
+## Documentation
+
+| Doc | Contents |
+| --- | -------- |
+| [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md) | Data flow, package roles, doc index |
+| [docs/API.md](./docs/API.md) | REST v1 endpoints, errors, env vars |
+| [DECISIONS.md](./DECISIONS.md) | Engineering and product defaults |
+
 ## Phase status
 
-| Phase | Scope |
-| ----- | ----- |
-| **1** | Monorepo, shared schemas/personas, theme tokens, lint/CI |
-| 2 | Weather providers, normalisation, core `/v1` routes |
-| 3 | Personalisation engine + `/feed` |
-| 4 | UI component library + `/dev/gallery` |
-| 5–7 | Screens, offline/i18n/notifications, README demo script |
+| Phase | Status | Scope |
+| ----- | ------ | ----- |
+| **1** | Done | Monorepo, shared schemas/personas, theme tokens, lint/CI |
+| **2** | Done | Weather providers, cache, `/v1/weather`, `/v1/alerts`, `/v1/locations/search` |
+| 3 | Next | Personalisation engine + `/feed` |
+| 4 | Planned | UI component library + `/dev/gallery` |
+| 5–7 | Planned | Screens, offline/i18n/notifications, demo script |
 
-See [DECISIONS.md](./DECISIONS.md) for defaults and assumptions.
-
-## Architecture (target)
+## Architecture
 
 ```mermaid
 flowchart LR

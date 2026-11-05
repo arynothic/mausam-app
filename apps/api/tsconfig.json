@@ -3,11 +3,9 @@
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "./src",
-    "composite": true,
-    "paths": {
-      "@mausam/shared": ["../../packages/shared/src/index.ts"]
-    }
+    "composite": true
   },
   "include": ["src/**/*"],
+  "exclude": ["src/**/*.test.ts"],
   "references": [{ "path": "../../packages/shared" }]
 }

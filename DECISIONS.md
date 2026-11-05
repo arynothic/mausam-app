@@ -7,22 +7,30 @@
 - **Plus Jakarta Sans** via `@expo-google-fonts/plus-jakarta-sans` (Inter alternative per spec).
 - **Strict TypeScript** everywhere; `@typescript-eslint/strictTypeChecked` at repo root.
 - **Shared package** builds to `dist/` for Node (API/tests); mobile resolves **source** via TS paths + Metro `watchFolders` for fast iteration.
+- **Docs** live under `docs/` and `README.md`; update them at the end of each delivery phase.
 
-## Product & data (upcoming phases)
+## Weather & alerts (Phase 2)
 
-- **Default weather provider:** Open-Meteo (no API key). **IMD adapter** stubbed in Phase 2; mock provider for demos/tests.
-- **Alerts:** mock/adapter-flagged until IMD credentials are wired.
-- **Auth:** anonymous **device ID** profile sync only (no login in MVP).
-- **Engine location:** implemented in `packages/shared` (Phase 3) so the same logic runs on API and optionally on-device offline.
+- **Default provider:** [`OpenMeteoWeatherProvider`](apps/api/src/weather/open-meteo.ts) — forecast + air-quality APIs, no API key.
+- **`mock` provider:** deterministic snapshots for tests, CI, and offline demos; can emit a sample thunderstorm alert.
+- **`imd` provider:** stub — returns normalised data with `provider: imd` and TODO for MOS/nowcast/CAP integration ([`ImdWeatherProvider`](apps/api/src/weather/mock.ts)).
+- **Caching:** in-memory store keyed by `provider + 0.1° grid`; TTL **10 minutes** for full snapshots. `REDIS_URL` reserved; still uses memory until Redis client is added.
+- **Geocoding:** merge ranked [`INDIA_SEED_LOCATIONS`](packages/shared/src/locations/india-seeds.ts) with Open-Meteo geocoding (`countryCode=IN`).
+- **Alerts on `/v1/alerts`:** slice of snapshot; live IMD warnings pending adapter. Mock/demo alerts are clearly `source: mock` or stubbed `imd`.
+
+## Product (upcoming)
+
+- **Auth:** anonymous **device ID** profile sync (`GET/PUT /v1/profile/:deviceId`) — Phase 5 with Prisma + SQLite.
+- **Engine location:** `packages/shared` (Phase 3) so the same logic runs on API and on-device offline.
 
 ## UX
 
 - **System light/dark** via `userInterfaceStyle: automatic` and `ThemeProvider`.
 - **Weather-adaptive gradients** apply to the **hero region only**, not full-screen washes.
-- **Severity** always uses colour + text/icon (tokens in `src/theme/colors.ts`).
+- **Severity** always uses colour + text/icon (tokens in `apps/mobile/src/theme/colors.ts`).
 
 ## Assumptions
 
 - API default port **3001** to avoid clashing with Expo web (8081) and common 3000 dev servers.
-- **SQLite + Prisma** introduced in Phase 2 with profile persistence; Phase 1 API is health-only bootstrap.
-- **Redis** optional; in-memory cache fallback in Phase 2.
+- OpenAPI UI at **`/docs`** for manual exploration during development.
+- Rate limit defaults: **120 req / minute / IP** (configurable via env).

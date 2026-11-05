@@ -24,6 +24,13 @@ export {
   ApiErrorSchema,
 } from "./weather.js";
 
+export {
+  LocationSearchQuerySchema,
+  LocationSearchResponseSchema,
+  WeatherQuerySchema,
+  AlertsQuerySchema,
+} from "./api.js";
+
 export type {
   Severity,
   PersonaId,
@@ -46,3 +53,10 @@ export type {
   FeedRequest,
   ApiError,
 } from "./weather.js";
+
+export type {
+  LocationSearchQuery,
+  LocationSearchResponse,
+  WeatherQuery,
+  AlertsQuery,
+} from "./api.js";
