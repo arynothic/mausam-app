@@ -56,6 +56,7 @@ pnpm test
 
 | Doc | Contents |
 | --- | -------- |
+| [docs/PHASES.md](./docs/PHASES.md) | Phase-by-phase delivery log |
 | [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md) | Data flow, package roles, doc index |
 | [docs/API.md](./docs/API.md) | REST v1 endpoints, errors, env vars |
 | [DECISIONS.md](./DECISIONS.md) | Engineering and product defaults |
