@@ -1,3 +1,4 @@
+import { Link } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
 import { ScrollView, StyleSheet, View } from "react-native";
@@ -22,12 +23,19 @@ export default function HomePlaceholder() {
           style={[styles.hero, { borderRadius: theme.radii.xxl }]}
         >
           <ThemedText variant="caption" color="secondary">
-            Mausam · Phase 1
+            Mausam · Phase 4 UI
           </ThemedText>
           <ScreenTitle style={{ marginTop: theme.spacing[2] }}>Personal weather</ScreenTitle>
           <ThemedText color="secondary" style={{ marginTop: theme.spacing[2] }}>
-            {PERSONA_DEFINITIONS.length} personas ready in shared package.
+            Component library ready — open the gallery to preview.
           </ThemedText>
+          <View style={{ marginTop: theme.spacing[4] }}>
+            <Link href="/dev/gallery" asChild>
+              <ThemedText color="accent" accessibilityRole="link">
+                UI gallery →
+              </ThemedText>
+            </Link>
+          </View>
         </LinearGradient>
         <View style={{ marginTop: theme.spacing[6], gap: theme.spacing[2] }}>
           {PERSONA_DEFINITIONS.map((p) => (

@@ -1,4 +1,4 @@
-import type { UserProfile, WeatherSnapshot } from "../../src/schemas/weather.js";
+import type { UserProfile, WeatherSnapshot } from "../schemas/weather.js";
 
 const baseLocation = {
   id: "in-delhi",
@@ -95,8 +95,7 @@ export function profileFor(persona: UserProfile["activePersona"]): UserProfile {
     primaryLocationId: baseLocation.id,
     units: { temperature: "celsius", windSpeed: "kmh", precipitation: "mm" },
     sensitivities: { asthma: false, heatSensitive: false },
-    farmer:
-      persona === "farmer" ? { crops: ["wheat"] } : undefined,
+    farmer: persona === "farmer" ? { crops: ["wheat"] } : undefined,
     runner: persona === "runner" ? { preferredRunWindow: "morning" } : undefined,
     language: "en",
     cardVisibility: { hiddenCardIds: [], pinnedCardIds: [] },

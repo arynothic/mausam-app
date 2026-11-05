@@ -59,6 +59,7 @@ pnpm demo:feed   # same fixture weather → 4 persona homepages
 | --- | -------- |
 | [docs/PHASES.md](./docs/PHASES.md) | Phase-by-phase delivery log |
 | [docs/ENGINE.md](./docs/ENGINE.md) | Personalisation engine guide |
+| [docs/MOBILE.md](./docs/MOBILE.md) | Mobile UI components + gallery |
 | [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md) | Data flow, package roles, doc index |
 | [docs/API.md](./docs/API.md) | REST v1 endpoints, errors, env vars |
 | [DECISIONS.md](./DECISIONS.md) | Engineering and product defaults |
@@ -70,8 +71,9 @@ pnpm demo:feed   # same fixture weather → 4 persona homepages
 | **1** | Done | Monorepo, shared schemas/personas, theme tokens, lint/CI |
 | **2** | Done | Weather providers, cache, `/v1/weather`, `/v1/alerts`, `/v1/locations/search` |
 | **3** | Done | Personalisation engine, `POST /v1/feed`, `pnpm demo:feed` |
-| 4 | Next | UI component library + `/dev/gallery` |
-| 5–7 | Planned | Screens, offline/i18n/notifications, polish |
+| **4** | Done | UI library + `/dev/gallery` ([MOBILE.md](./docs/MOBILE.md)) |
+| 5 | Next | Onboarding → Home → Detail → Alerts → Locations → Settings |
+| 6–7 | Planned | Offline/i18n/notifications, polish |
 
 ## Architecture
 

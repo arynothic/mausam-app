@@ -25,11 +25,16 @@ Living log — update at the end of each phase (see [README](../README.md)).
 - `pnpm demo:feed` — runner / farmer / parent / traveller comparison
 - [ENGINE.md](./ENGINE.md)
 
-## Phase 4 — UI component library (next)
+## Phase 4 — UI component library ✅
 
 - Reusable components under `apps/mobile/src/components/ui`
-- `/dev/gallery` previews
+- `/dev/gallery` preview screen
+- [MOBILE.md](./MOBILE.md)
 
-## Phases 5–7
+## Phase 5 — App screens (next)
 
-Screens, offline/i18n/notifications, polish.
+- Onboarding → Home → Detail → Alerts → Locations → Settings
+
+## Phases 6–7
+
+Offline/i18n/notifications, polish.

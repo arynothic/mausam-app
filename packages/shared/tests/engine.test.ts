@@ -5,7 +5,7 @@ import {
   FIXTURE_SNAPSHOT,
   FIXTURE_SNAPSHOT_STORM,
   profileFor,
-} from "./fixtures/weather-fixture.js";
+} from "../src/fixtures/weather-fixture.js";
 
 describe("personalisation engine", () => {
   it("ranks runner-specific cards for runner persona", () => {

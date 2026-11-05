@@ -19,7 +19,8 @@ export const travellerInsights: InsightModule[] = [
           whyExplanation: "Add saved locations to compare routes (traveller mode).",
         };
       }
-      const dest = others[0];
+      const dest = others.at(0);
+      if (dest === undefined) return null;
       return {
         type: "route_weather",
         personas: ["traveller"],

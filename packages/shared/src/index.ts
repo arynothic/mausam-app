@@ -1,3 +1,4 @@
+export * from "./fixtures/weather-fixture.js";
 export * from "./engine/index.js";
 export * from "./schemas/index.js";
 export * from "./personas/index.js";
